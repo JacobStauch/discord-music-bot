@@ -70,6 +70,7 @@ func (svc *Service) doSearchAndDownload(query string) searchAndDownloadResult {
 			return searchAndDownloadResult{Error: fmt.Errorf("failed to search and download audio: %s\n%s", err.Error(), string(data))}
 		} else {
 			videoMetadata := videoMetadata{}
+			opusFilename := strings.TrimSuffix(videoMetadata.Filename, filepath.Ext(videoMetadata.Filename)) + ".opus"
 			err = json.Unmarshal(data, &videoMetadata)
 			if err != nil {
 				fmt.Println(string(data))
@@ -78,7 +79,7 @@ func (svc *Service) doSearchAndDownload(query string) searchAndDownloadResult {
 			return searchAndDownloadResult{
 				Media: core.NewMedia(
 					videoMetadata.Title,
-					videoMetadata.Filename,
+					opusFilename,
 					videoMetadata.Uploader,
 					fmt.Sprintf("https://www.youtube.com/watch?v=%s", videoMetadata.ID),
 					videoMetadata.Thumbnail,
