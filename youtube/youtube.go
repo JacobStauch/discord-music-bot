@@ -56,7 +56,7 @@ func (svc *Service) doSearchAndDownload(query string) searchAndDownloadResult {
 			"--extract-audio",
 			"--audio-format", "opus",
 			"--no-playlist",
-			"--match-filter", fmt.Sprintf("duration < %d & !is_live", svc.maxDurationInSeconds),
+			"--match-filter", fmt.Sprintf("duration < %d & live_status=not_live", svc.maxDurationInSeconds),
 			"--max-downloads", "1",
 			"--output", fmt.Sprintf("%s/%d-%%(id)s.opus", svc.fileDirectory, start.Unix()),
 			"--quiet",
@@ -71,8 +71,8 @@ func (svc *Service) doSearchAndDownload(query string) searchAndDownloadResult {
 			return searchAndDownloadResult{Error: fmt.Errorf("failed to search and download audio: %s\n%s", err.Error(), string(data))}
 		} else {
 			videoMetadata := videoMetadata{}
-			opusFilename := strings.TrimSuffix(videoMetadata.Filename, filepath.Ext(videoMetadata.Filename)) + ".opus"
 			err = json.Unmarshal(data, &videoMetadata)
+			opusFilename := strings.TrimSuffix(videoMetadata.Filename, filepath.Ext(videoMetadata.Filename)) + ".opus"
 			if err != nil {
 				fmt.Println(string(data))
 				return searchAndDownloadResult{Error: fmt.Errorf("failed to unmarshal video metadata: %w", err)}
