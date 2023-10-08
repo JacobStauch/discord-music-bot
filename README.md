@@ -1,4 +1,9 @@
 # discord-music-bot
+TODO: 
+- !queue command - shows the current tracks in the queue and the queue length
+- !np command - shows the currently playing track
+- Differentiate between direct video URLs and search terms as there are some instances where someone has linked to another video in the description, and trying to play the video ends up returning the referencing video as the first search result instead of the desired video
+
 [![Docker pulls](https://img.shields.io/docker/pulls/twinproduction/discord-music-bot)](https://cloud.docker.com/repository/docker/twinproduction/discord-music-bot)
 
 This is a minimal music bot for Discord that support streaming to multiple servers concurrently.  
