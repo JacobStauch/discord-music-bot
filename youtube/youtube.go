@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"strings"
 	"time"
+	"path/filepath"
 
 	"github.com/TwiN/discord-music-bot/core"
 )
